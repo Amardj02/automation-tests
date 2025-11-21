@@ -4,6 +4,9 @@ import { DashboardPage } from '../pages/DashboardPage';
 import { PIMPage } from '../pages/PIMPage';
 import { generateEmployeeData } from '../utils/randomData';
 
+const ADMIN_USERNAME = process.env.ADMIN_USERNAME as string;
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD as string;
+
 type MyFixtures = {
   employee: { firstName: string; lastName: string; employeeId: string };
   loginPage: LoginPage;
@@ -20,7 +23,7 @@ export const test = base.extend<MyFixtures>({
   loginPage: async ({ page }, use) => {
     const loginPage = new LoginPage(page);
     await loginPage.openApplication();
-    await loginPage.login('Admin', 'admin123');
+    await loginPage.login(ADMIN_USERNAME, ADMIN_PASSWORD);
     await use(loginPage);
   },
 
