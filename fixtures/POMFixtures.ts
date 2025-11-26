@@ -3,21 +3,30 @@ import { LoginPage } from '../pages/LoginPage';
 import { DashboardPage } from '../pages/DashboardPage';
 import { PIMPage } from '../pages/PIMPage';
 import { generateEmployeeData } from '../utils/randomData';
+import { LeavePage } from '../pages/LeavePage';
+import {generateLeaveDates} from "../utils/dateHelpers"
+
 
 const ADMIN_USERNAME = process.env.ADMIN_USERNAME as string;
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD as string;
 
 type MyFixtures = {
   employee: { firstName: string; lastName: string; employeeId: string };
+  leaveDates: {startDate: string; endDate: string};
   loginPage: LoginPage;
   dashboardPage: DashboardPage;
   pimPage: PIMPage;
+  leavePage: LeavePage; 
 };
 
 export const test = base.extend<MyFixtures>({
   employee: async ({}, use) => {
     const employeeData = generateEmployeeData();
     await use(employeeData);
+  },
+  leaveDates: async ({}, use) => {
+    const leaveDates = generateLeaveDates();
+    await use(leaveDates);
   },
 
   loginPage: async ({ page }, use) => {
@@ -35,6 +44,10 @@ export const test = base.extend<MyFixtures>({
   pimPage: async ({ loginPage }, use) => {
     const pimPage = new PIMPage(loginPage.page);
     await use(pimPage);
+  },
+  leavePage: async ({ loginPage }, use) => {
+    const leavePage = new LeavePage(loginPage.page);
+    await use(leavePage);
   },
 });
 

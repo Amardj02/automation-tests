@@ -1,6 +1,7 @@
-import { Page, Locator } from '@playwright/test';
+import { Page, Locator, expect } from '@playwright/test';
+import { BasePage } from './BasePage';
 
-export class PIMPage {
+export class PIMPage  extends BasePage{
   readonly page: Page;
   readonly addButton: Locator;
   readonly firstNameInput: Locator;
@@ -9,6 +10,7 @@ export class PIMPage {
   readonly submitButton: Locator;
 
   constructor(page: Page) {
+    super(page);
     this.page = page;
     this.addButton = page.locator('button:has(.bi-plus)');
     this.firstNameInput = page.locator('input.orangehrm-firstname[name="firstName"]');
@@ -37,5 +39,6 @@ export class PIMPage {
     await this.openAddEmployee();
     await this.fillEmployeeForm(employee);
     await this.submitForm();
+    await this.waitForSuccessToast();
 }
 }
