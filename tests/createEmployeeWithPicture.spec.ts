@@ -1,10 +1,10 @@
 import { test, expect } from '../fixtures/POMFixtures';
 
 
-test('Create New Employee', async ({ dashboardPage, pimPage, employee }) => {
-
+test('Create New Employee with profile picture', async ({ dashboardPage, pimPage, employee }) => {
+  const imagePath = 'assets/avatar.jpg';
   await dashboardPage.navigateToPIM();
-  await pimPage.addNewEmployee(employee);
+  await pimPage.addNewEmployee(employee, imagePath);
 
   await pimPage.waitForSuccessToast();
   await expect(pimPage.page).toHaveURL(/pim\/viewPersonalDetails/);

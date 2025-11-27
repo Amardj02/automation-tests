@@ -8,6 +8,7 @@ export class PIMPage  extends BasePage{
   readonly lastNameInput: Locator;
   readonly employeeIdInput: Locator;
   readonly submitButton: Locator;
+  readonly profilePicInput : Locator;
 
   constructor(page: Page) {
     super(page);
@@ -19,6 +20,7 @@ export class PIMPage  extends BasePage{
       'div.oxd-input-group:has(label:has-text("Employee Id")) input'
     );
     this.submitButton = page.locator('button[type="submit"]');
+    this.profilePicInput = page.locator('input.oxd-file-input');
   }
 
   async openAddEmployee() {
@@ -34,11 +36,19 @@ export class PIMPage  extends BasePage{
   async submitForm() {
     await this.submitButton.click();
   }
+  async uploadProfilePicture(imagePath: string) {
+  await this.profilePicInput.setInputFiles(imagePath);
+}
 
-  async addNewEmployee(employee: { firstName: string; lastName: string; employeeId: string }) {
-    await this.openAddEmployee();
-    await this.fillEmployeeForm(employee);
-    await this.submitForm();
-    await this.waitForSuccessToast();
+async addNewEmployee(
+  employee: { firstName: string; lastName: string; employeeId: string },
+  imagePath: string
+) {
+  await this.openAddEmployee();
+  await this.fillEmployeeForm(employee);
+  await this.uploadProfilePicture(imagePath);
+
+  await this.submitForm();
+  await this.waitForSuccessToast();
 }
 }
