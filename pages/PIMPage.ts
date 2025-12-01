@@ -1,5 +1,6 @@
 import { Page, Locator, expect } from '@playwright/test';
 import { BasePage } from './BasePage';
+import { th } from '@faker-js/faker/.';
 
 export class PIMPage  extends BasePage{
   readonly page: Page;
@@ -9,7 +10,23 @@ export class PIMPage  extends BasePage{
   readonly employeeIdInput: Locator;
   readonly submitButton: Locator;
   readonly profilePicInput : Locator;
-
+  readonly employeeFullNameInput: Locator;
+  readonly searchButton: Locator;
+  readonly middleNameInput: Locator;
+  readonly genderRadioGroup: Locator;
+  readonly maritalStatusDropdown: Locator;
+  readonly nationalityDropdown: Locator;
+  readonly personalDetailsSaveButton: Locator;
+  readonly QualifcationsTab: Locator;
+  readonly addWorkExperienceButton: Locator;
+  readonly companyInput: Locator;
+  readonly jobTitleInput: Locator;
+  readonly addEducationButton: Locator;
+  readonly educationLevelDropdown: Locator;
+  readonly saveButton: Locator;
+  employeeRow: (employeeId: string) => Locator;
+  editButton: (employeeId: string) => Locator;
+ 
   constructor(page: Page) {
     super(page);
     this.page = page;
@@ -21,6 +38,24 @@ export class PIMPage  extends BasePage{
     );
     this.submitButton = page.locator('button[type="submit"]');
     this.profilePicInput = page.locator('input.oxd-file-input');
+    this.employeeFullNameInput = page.locator('input[placeholder="Type for hints..."]').first();
+    this.searchButton = page.locator('button[type="submit"].oxd-button--secondary');
+    this.employeeRow = (employeeId: string) =>
+      this.page.locator('.oxd-table-row--clickable', { hasText: employeeId });
+    this.editButton = (employeeId: string) =>
+      this.employeeRow(employeeId).locator('button:has(i.bi-pencil-fill)');
+    this.middleNameInput = page.getByRole('textbox', { name: 'Middle Name' })
+    this.genderRadioGroup = page.locator('.oxd-radio-input').first() 
+    this.maritalStatusDropdown = page.locator('div.oxd-select-text-input').nth(1);
+    this.nationalityDropdown = page.locator('div.oxd-select-text-input').first();
+    this.personalDetailsSaveButton = page.locator('form').filter({ hasText: 'Employee Full NameEmployee' }).getByRole('button');
+    this.QualifcationsTab = page.getByRole('link', { name: 'Qualifications' });
+    this.addWorkExperienceButton = page.getByRole('button', { name: ' Add' }).first();
+    this.companyInput = page.getByRole('textbox').nth(1);
+    this.jobTitleInput = page.getByRole('textbox').nth(2);
+    this.addEducationButton = page.getByRole('button', { name: ' Add' }).nth(1);
+    this.educationLevelDropdown = page.locator('div.oxd-select-text-input');
+    this.saveButton = page.getByRole('button', { name: 'Save' }).first();
   }
 
   async openAddEmployee() {
@@ -51,4 +86,57 @@ async addNewEmployee(
   await this.submitForm();
   await this.waitForSuccessToast();
 }
+  async searchEmployee(fullName: string, employeeId: string) {
+    await this.employeeFullNameInput.fill(fullName);
+    await this.employeeIdInput.fill(employeeId);
+    await this.searchButton.click();
+  }
+  async openEmployeeDetails(employeeId: string) {
+    await this.editButton(employeeId).click();
+  }
+async editPersonalDetails(middleName: string, nationality: string, maritalStatus: string) {
+ await this.middleNameInput.click();
+ await this.middleNameInput.fill(middleName);
+ await this.selectNationality(nationality);
+ await this.selectMaritalStatus(maritalStatus);
+ await this.genderRadioGroup.click();
+ await this.personalDetailsSaveButton.click();
 }
+async selectNationality(nationality: string) {
+  const option = this.page.locator('div[role="option"]', { hasText: nationality });
+  
+  await this.nationalityDropdown.click();
+  await option.waitFor({ state: 'visible', timeout: 3000 });
+  await option.click();
+}
+async selectMaritalStatus(maritalStatus: string) {
+  const option = this.page.locator('div[role="option"]', { hasText: maritalStatus });
+
+  await this.maritalStatusDropdown.click();
+  await option.waitFor({ state: 'visible', timeout: 3000 });
+  await option.click();
+}
+async navigateToQualificationsTab() {
+  await this.QualifcationsTab.click();
+
+}
+async addWorkExperience(company: string, jobTitle: string) {
+  await this.addWorkExperienceButton.click();
+  await this.companyInput.click();
+  await this.companyInput.fill(company);
+  await this.jobTitleInput.click();
+  await this.jobTitleInput.fill(jobTitle);
+  await this.submitButton.click();
+  await this.waitForSuccessToast();
+}
+async addEducation(educationLevel: string) {
+  const option = this.page.locator('div[role="option"]', { hasText: educationLevel });
+
+  await this.addEducationButton.click();
+  await this.educationLevelDropdown.click();
+  await option.waitFor({ state: 'visible', timeout: 3000 });
+  await option.click();
+  await this.saveButton.click();
+  await this.waitForSuccessToast();
+
+}}
