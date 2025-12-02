@@ -2,7 +2,7 @@ import { test, expect } from '../fixtures/POMFixtures';
 import path from 'path';
 
 test.beforeEach(async ({ dashboardPage, pimPage, employee }) => {
-  const imagePath = path.resolve(__dirname, '../assets/avatar.jpg');
+  const imagePath = path.resolve('assets','avatar.jpg');
   await dashboardPage.navigateToPIM();
   await pimPage.addNewEmployee(employee, imagePath);
 });

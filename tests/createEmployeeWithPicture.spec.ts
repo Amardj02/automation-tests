@@ -3,7 +3,7 @@ import { test, expect } from '../fixtures/POMFixtures';
 
 
 test('Create New Employee with profile picture', async ({ dashboardPage, pimPage, employee }) => {
-  const imagePath = path.resolve(__dirname, '../assets/avatar.jpg');
+  const imagePath = path.resolve('assets','avatar.jpg');
   await dashboardPage.navigateToPIM();
   await pimPage.addNewEmployee(employee, imagePath);
 
