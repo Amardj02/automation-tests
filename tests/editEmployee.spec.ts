@@ -11,16 +11,21 @@ test.beforeEach(async ({ dashboardPage, pimPage, employee }) => {
 });
 
 
-test('Edit employee personal details', async ({ pimPage, dashboardPage }) => {
+test('Edit employee personal details', async ({ pimPage, dashboardPage, personalDetails, workExperience,educationLevel}) => {
   
   await dashboardPage.navigateToPIM();
   await pimPage.searchEmployee(
     `${createdEmployee.firstName} ${createdEmployee.lastName}`,
     createdEmployee.employeeId
   );
- await pimPage.openEmployeeDetails(createdEmployee.employeeId);
- await pimPage.editPersonalDetails('Alexander','Bosnian','Single');
+  await pimPage.openEmployeeDetails(createdEmployee.employeeId);
+  await pimPage.editPersonalDetails(
+    personalDetails.middleName,
+    personalDetails.nationality,
+    personalDetails.maritalStatus,
+    personalDetails.gender
+  );
  await pimPage.navigateToQualificationsTab();
- await pimPage.addWorkExperience('Tech Solutions','Software Engineer');
- await pimPage.addEducation("Master's Degree");
+ await pimPage.addWorkExperience(workExperience.company, workExperience.jobTitle);
+ await pimPage.addEducation(educationLevel.educationLevel);
 });
