@@ -72,6 +72,7 @@ async submitForm() {
     await this.submitButton.click();
   }
 async uploadProfilePicture(imagePath: string) {
+  console.log(imagePath)
   await this.profilePicInput.setInputFiles(imagePath);
 }
 
