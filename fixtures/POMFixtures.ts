@@ -5,6 +5,7 @@ import { PIMPage } from '../pages/PIMPage';
 import { generateEmployeeData } from '../utils/randomData';
 import { LeavePage } from '../pages/LeavePage';
 import {generateLeaveDates} from "../utils/dateHelpers"
+import {generateRandomPersonalDetails, generateWorkExperience, generateEducationLevel} from "../utils/randomPersonalDetails"
 
 
 const ADMIN_USERNAME = process.env.ADMIN_USERNAME as string;
@@ -16,7 +17,18 @@ type MyFixtures = {
   loginPage: LoginPage;
   dashboardPage: DashboardPage;
   pimPage: PIMPage;
-  leavePage: LeavePage; 
+  leavePage: LeavePage;
+  personalDetails:{
+    middleName: string;
+    gender: '1' | '2';
+    maritalStatus: string;
+    nationality: string;
+  }
+  workExperience:{
+    company: string;
+    jobTitle: string;
+  }
+  educationLevel:{ educationLevel: string };
 };
 
 export const test = base.extend<MyFixtures>({
@@ -28,6 +40,19 @@ export const test = base.extend<MyFixtures>({
     const leaveDates = generateLeaveDates();
     await use(leaveDates);
   },
+  personalDetails: async ({}, use) => {
+    const personalDetails = generateRandomPersonalDetails();
+    await use(personalDetails);
+  },
+  workExperience: async ({}, use) => {
+    const workExperience = generateWorkExperience();
+    await use(workExperience);
+  },
+  educationLevel: async ({}, use) => {
+    const educationLevel = generateEducationLevel();
+    await use(educationLevel);
+  },
+  
 
   loginPage: async ({ page }, use) => {
     const loginPage = new LoginPage(page);
