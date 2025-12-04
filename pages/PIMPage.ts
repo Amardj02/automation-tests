@@ -24,6 +24,11 @@ export class PIMPage  extends BasePage{
   readonly addEducationButton: Locator;
   readonly educationLevelDropdown: Locator;
   readonly saveButton: Locator;
+  readonly createLoginDetailsSlider: Locator;
+  readonly usernameInput: Locator;
+  readonly passwordInput: Locator;
+  readonly confirmPasswordInput: Locator;
+  readonly pimMenu: Locator;
   employeeRow: (employeeId: string) => Locator;
   editButton: (employeeId: string) => Locator;
  
@@ -56,6 +61,11 @@ export class PIMPage  extends BasePage{
     this.addEducationButton = page.locator('button.oxd-button--text', { hasText: 'Add' }).nth(1);
     this.educationLevelDropdown = page.locator('div.oxd-select-text-input');
     this.saveButton = page.getByRole('button', { name: 'Save' }).first();
+    this.createLoginDetailsSlider = page.locator('.oxd-switch-input');
+    this.usernameInput = page.locator('input.oxd-input.oxd-input--active[autocomplete="off"]').first();
+    this.passwordInput = page.locator('input.oxd-input.oxd-input--active[type="password"]').first();
+    this.confirmPasswordInput = page.locator('input[type="password"]').nth(1);
+    this.pimMenu = page.locator('a.oxd-main-menu-item[href*="pim/viewPimModule"]');
   }
 
 async openAddEmployee() {
@@ -75,8 +85,17 @@ async uploadProfilePicture(imagePath: string) {
   console.log(imagePath)
   await this.profilePicInput.setInputFiles(imagePath);
 }
-
 async addNewEmployee(
+  employee: { firstName: string; lastName: string; employeeId: string }
+) {
+  await this.openAddEmployee();
+  await this.fillEmployeeForm(employee);
+
+  await this.submitForm();
+  await this.waitForSuccessToast();
+}
+
+async addNewEmployeeWithPicture(
   employee: { firstName: string; lastName: string; employeeId: string },
   imagePath: string
 ) {
@@ -150,4 +169,44 @@ async addEducation(educationLevel: string) {
   await this.saveButton.click();
   await this.waitForSuccessToast();
 
-}}
+}
+async addNewEmployeeWithLoginCredentials(employee: {
+  firstName: string;
+  lastName: string;
+  employeeId: string;
+  username: string;
+  password: string;
+}) {
+  await this.openAddEmployee();
+  await this.fillEmployeeForm(employee);
+  await this.createLoginDetailsSlider.click();
+  await this.usernameInput.fill(employee.username);
+  await this.passwordInput.fill(employee.password);
+  await this.confirmPasswordInput.click();
+  await this.confirmPasswordInput.fill(employee.password);
+  await this.submitForm();
+  await this.waitForSuccessToast();
+}
+async addNewEmployees(employees: Array<{
+  firstName: string;
+  lastName: string;
+  employeeId: string;
+  username: string;
+  password: string;
+}>) {
+  for (const employee of employees) {
+    await this.addNewEmployeeWithLoginCredentials(employee);
+    await this.verifyPersonalDetailsPage();
+    await this.navigateToPIM();
+  }
+}
+
+async navigateToPIM() {
+  await this.pimMenu.click();
+}
+
+async verifyPersonalDetailsPage(){
+  await expect(this.page).toHaveURL(/pim\/viewPersonalDetails/);
+  await expect(this.page.getByRole('heading', { name: 'Personal Details' })).toBeVisible();
+}
+}
