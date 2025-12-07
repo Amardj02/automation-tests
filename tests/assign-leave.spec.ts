@@ -4,7 +4,7 @@ import path from 'path';
 test.beforeEach(async ({ dashboardPage, pimPage, employee }) => {
   const imagePath = path.resolve('assets','avatar.jpg');
   await dashboardPage.navigateToPIM();
-  await pimPage.addNewEmployee(employee, imagePath);
+  await pimPage.addNewEmployeeWithPicture(employee, imagePath);
 });
 
 test('Assign leave as Admin', async ({ leavePage, employee, leaveDates}) => {

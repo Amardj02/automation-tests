@@ -9,8 +9,8 @@ export class BasePage {
     this.successToast = page.locator('.oxd-toast--success');
   }
 
-  async waitForSuccessToast() {
-  await expect(this.successToast).toBeVisible();
-  await expect(this.successToast).toContainText('Success');
+async waitForSuccessToast() {
+  await this.successToast.waitFor({ state: 'visible', timeout: 15000 });
+  await expect(this.successToast).toHaveText(/Success/, { timeout: 10000 });
 }
 }

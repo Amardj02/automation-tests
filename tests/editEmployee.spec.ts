@@ -6,7 +6,7 @@ let createdEmployee: { firstName: string; lastName: string; employeeId: string }
 test.beforeEach(async ({ dashboardPage, pimPage, employee }) => {
   const imagePath = path.resolve('assets','avatar.jpg');
   await dashboardPage.navigateToPIM();
-  await pimPage.addNewEmployee(employee, imagePath);
+  await pimPage.addNewEmployeeWithPicture(employee, imagePath);
   createdEmployee = employee;
 });
 

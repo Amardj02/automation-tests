@@ -17,7 +17,7 @@ test('Create New Employee', async ({ page }) => {
   await loginPage.openApplication();
   await loginPage.login('Admin', 'admin123');
   await dashboardPage.navigateToPIM();
-  await pimPage.addNewEmployee(employee,imagePath);
+  await pimPage.addNewEmployeeWithPicture(employee,imagePath);
 
 
 
