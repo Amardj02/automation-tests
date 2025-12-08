@@ -1,40 +1,37 @@
 import { Page, Locator, expect } from '@playwright/test';
 import { BasePage } from './BasePage';
-import { th } from '@faker-js/faker/.';
 
 export class PIMPage  extends BasePage{
-  readonly page: Page;
-  readonly addButton: Locator;
-  readonly firstNameInput: Locator;
-  readonly lastNameInput: Locator;
-  readonly employeeIdInput: Locator;
-  readonly submitButton: Locator;
-  readonly profilePicInput : Locator;
-  readonly employeeFullNameInput: Locator;
-  readonly searchButton: Locator;
-  readonly middleNameInput: Locator;
-  readonly genderRadioGroup: Locator;
-  readonly maritalStatusDropdown: Locator;
-  readonly nationalityDropdown: Locator;
-  readonly personalDetailsSaveButton: Locator;
-  readonly QualifcationsTab: Locator;
-  readonly addWorkExperienceButton: Locator;
-  readonly companyInput: Locator;
-  readonly jobTitleInput: Locator;
-  readonly addEducationButton: Locator;
-  readonly educationLevelDropdown: Locator;
-  readonly saveButton: Locator;
-  readonly createLoginDetailsSlider: Locator;
-  readonly usernameInput: Locator;
-  readonly passwordInput: Locator;
-  readonly confirmPasswordInput: Locator;
-  readonly pimMenu: Locator;
+  private readonly addButton: Locator;
+  private readonly firstNameInput: Locator;
+  private readonly lastNameInput: Locator;
+  private readonly employeeIdInput: Locator;
+  private readonly submitButton: Locator;
+  private readonly profilePicInput : Locator;
+  private readonly employeeFullNameInput: Locator;
+  private readonly searchButton: Locator;
+  private readonly middleNameInput: Locator;
+  private readonly genderRadioGroup: Locator;
+  private readonly maritalStatusDropdown: Locator;
+  private readonly nationalityDropdown: Locator;
+  private readonly personalDetailsSaveButton: Locator;
+  private readonly QualifcationsTab: Locator;
+  private readonly addWorkExperienceButton: Locator;
+  private readonly companyInput: Locator;
+  private readonly jobTitleInput: Locator;
+  private readonly addEducationButton: Locator;
+  private readonly educationLevelDropdown: Locator;
+  private readonly saveButton: Locator;
+  private readonly createLoginDetailsSlider: Locator;
+  private readonly usernameInput: Locator;
+  private readonly passwordInput: Locator;
+  private readonly confirmPasswordInput: Locator;
+  private readonly pimMenu: Locator;
   employeeRow: (employeeId: string) => Locator;
   editButton: (employeeId: string) => Locator;
  
   constructor(page: Page) {
     super(page);
-    this.page = page;
     this.addButton = page.locator('button:has(.bi-plus)');
     this.firstNameInput = page.locator('input.orangehrm-firstname[name="firstName"]');
     this.lastNameInput = page.locator('input.orangehrm-lastname[name="lastName"]');
@@ -68,24 +65,24 @@ export class PIMPage  extends BasePage{
     this.pimMenu = page.locator('a.oxd-main-menu-item[href*="pim/viewPimModule"]');
   }
 
-async openAddEmployee() {
+private async openAddEmployee() {
     await this.addButton.click();
   }
 
-async fillEmployeeForm(employee: { firstName: string; lastName: string; employeeId: string }) {
+private async fillEmployeeForm(employee: { firstName: string; lastName: string; employeeId: string }) {
     await this.firstNameInput.fill(employee.firstName);
     await this.lastNameInput.fill(employee.lastName);
     await this.employeeIdInput.fill(employee.employeeId);
   }
 
-async submitForm() {
+private async submitForm() {
     await this.submitButton.click();
   }
-async uploadProfilePicture(imagePath: string) {
+private async uploadProfilePicture(imagePath: string) {
   console.log(imagePath)
   await this.profilePicInput.setInputFiles(imagePath);
 }
-async addNewEmployee(
+public async addNewEmployee(
   employee: { firstName: string; lastName: string; employeeId: string }
 ) {
   await this.openAddEmployee();
@@ -95,7 +92,7 @@ async addNewEmployee(
   await this.waitForSuccessToast();
 }
 
-async addNewEmployeeWithPicture(
+public async addNewEmployeeWithPicture(
   employee: { firstName: string; lastName: string; employeeId: string },
   imagePath: string
 ) {
@@ -106,7 +103,7 @@ async addNewEmployeeWithPicture(
   await this.submitForm();
   await this.waitForSuccessToast();
 }
-async searchEmployee(fullName: string, employeeId: string) {
+public async searchEmployee(fullName: string, employeeId: string) {
     await this.employeeFullNameInput.fill(fullName);
     await this.employeeIdInput.fill(employeeId);
     await this.searchButton.click();
@@ -114,24 +111,24 @@ async searchEmployee(fullName: string, employeeId: string) {
   const row = this.employeeRow(employeeId); 
   await row.waitFor({ state: 'visible', timeout: 5000 }); 
   }
-async openEmployeeDetails(employeeId: string) {
+public async openEmployeeDetails(employeeId: string) {
     await this.editButton(employeeId).click();
   }
-async selectNationality(nationality: string) {
+private async selectNationality(nationality: string) {
   const option = this.page.locator('div[role="option"]', { hasText: nationality });
   
   await this.nationalityDropdown.click();
   await option.waitFor({ state: 'visible' });
   await option.click();
 }
-async selectMaritalStatus(maritalStatus: string) {
+private async selectMaritalStatus(maritalStatus: string) {
   const option = this.page.locator('div[role="option"]', { hasText: maritalStatus });
 
   await this.maritalStatusDropdown.click();
   await option.waitFor({ state: 'visible'});
   await option.click();
 }
-async editPersonalDetails(middleName: string, nationality: string, maritalStatus: string, gender: '1' | '2') {
+public async editPersonalDetails(middleName: string, nationality: string, maritalStatus: string, gender: '1' | '2') {
   await this.middleNameInput.click();
   await this.middleNameInput.fill(middleName);
 
@@ -146,11 +143,11 @@ async editPersonalDetails(middleName: string, nationality: string, maritalStatus
   await this.personalDetailsSaveButton.click();
   await this.waitForSuccessToast();
 }
-async navigateToQualificationsTab() {
+public async navigateToQualificationsTab() {
   await this.QualifcationsTab.click();
 
 }
-async addWorkExperience(company: string, jobTitle: string) {
+public async addWorkExperience(company: string, jobTitle: string) {
   await this.addWorkExperienceButton.click();
   await this.companyInput.click();
   await this.companyInput.fill(company);
@@ -159,7 +156,7 @@ async addWorkExperience(company: string, jobTitle: string) {
   await this.saveButton.click();
   await this.waitForSuccessToast();
 }
-async addEducation(educationLevel: string) {
+public async addEducation(educationLevel: string) {
   const option = this.page.locator('div[role="option"]', { hasText: educationLevel });
 
   await this.addEducationButton.click();
@@ -170,7 +167,7 @@ async addEducation(educationLevel: string) {
   await this.waitForSuccessToast();
 
 }
-async addNewEmployeeWithLoginCredentials(employee: {
+public async addNewEmployeeWithLoginCredentials(employee: {
   firstName: string;
   lastName: string;
   employeeId: string;
@@ -187,7 +184,7 @@ async addNewEmployeeWithLoginCredentials(employee: {
   await this.submitForm();
   await this.waitForSuccessToast();
 }
-async addNewEmployees(employees: Array<{
+public async addNewEmployees(employees: Array<{
   firstName: string;
   lastName: string;
   employeeId: string;
@@ -201,11 +198,11 @@ async addNewEmployees(employees: Array<{
   }
 }
 
-async navigateToPIM() {
+private async navigateToPIM() {
   await this.pimMenu.click();
 }
 
-async verifyPersonalDetailsPage(){
+public async verifyPersonalDetailsPage(){
   await expect(this.page).toHaveURL(/pim\/viewPersonalDetails/);
   await expect(this.page.getByRole('heading', { name: 'Personal Details' })).toBeVisible();
 }
