@@ -9,7 +9,7 @@ test('POST /api/v2/pim/employees - create employee (hard-coded cookie)', async (
   };
   const response = await request.post('api/v2/pim/employees', {
     headers: {
-      Cookie: 'orangehrm=pijaasm1d381lfis21i9934794',
+      Cookie: 'orangehrm=prm7vbgtr4ab8or57tgb2uio3l',
       'Content-Type': 'application/json',
       Accept: 'application/json',
     },
