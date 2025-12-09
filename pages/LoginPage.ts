@@ -15,7 +15,7 @@ export class LoginPage {
   }
 
   private async openApplication() {
-    await this.page.goto('/web/index.php/auth/login');
+    await this.page.goto('auth/login');
   }
 
   public async login(username: string, password: string) {
