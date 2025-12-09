@@ -1,9 +1,15 @@
 import { test, expect } from '../fixtures/POMFixtures';
 import path from 'path';
+import { generateRandomPersonalDetails, generateWorkExperience, generateEducationLevel } from '../utils/randomPersonalDetails';
+import { generateEmployeeData } from '../utils/randomData';
 
 let createdEmployee: { firstName: string; lastName: string; employeeId: string };
+const personalDetails = generateRandomPersonalDetails();
+const workExperience = generateWorkExperience();
+const educationLevel = generateEducationLevel();
+const employee = generateEmployeeData();
 
-test.beforeEach(async ({ dashboardPage, pimPage, employee }) => {
+test.beforeEach(async ({ dashboardPage, pimPage}) => {
   const imagePath = path.resolve('assets','avatar.jpg');
   await dashboardPage.navigateToPIM();
   await pimPage.addNewEmployeeWithPicture(employee, imagePath);
@@ -11,7 +17,7 @@ test.beforeEach(async ({ dashboardPage, pimPage, employee }) => {
 });
 
 
-test('Edit employee personal details', async ({ pimPage, dashboardPage, personalDetails, workExperience,educationLevel}) => {
+test('Edit employee personal details', async ({ pimPage, dashboardPage}) => {
   
   await dashboardPage.navigateToPIM();
   await pimPage.searchEmployee(

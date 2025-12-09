@@ -14,7 +14,6 @@ test('Create New Employee', async ({ page }) => {
   const successToast = page.locator('.oxd-toast--success');
   const employee = generateEmployeeData();
 
-  await loginPage.openApplication();
   await loginPage.login('Admin', 'admin123');
   await dashboardPage.navigateToPIM();
   await pimPage.addNewEmployeeWithPicture(employee,imagePath);
