@@ -15,7 +15,7 @@ export class LoginPage {
   }
 
   private async openApplication() {
-    await this.page.goto('auth/login');
+    await this.page.goto('auth/login', { waitUntil: 'domcontentloaded' });
   }
 
   public async login(username: string, password: string) {

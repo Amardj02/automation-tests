@@ -10,7 +10,6 @@ export class BasePage {
   }
 
   protected async waitForSuccessToast() {
-    await this.successToast.waitFor({ state: 'visible', timeout: 15000 });
     await expect(this.successToast).toHaveText(/Success/, { timeout: 10000 });
   }
 }
