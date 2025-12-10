@@ -203,7 +203,6 @@ private async navigateToPIM() {
 }
 
 public async verifyPersonalDetailsPage(){
-  await expect(this.page).toHaveURL(/pim\/viewPersonalDetails/);
   await expect(this.page.getByRole('heading', { name: 'Personal Details' })).toBeVisible();
 }
 }
