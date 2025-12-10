@@ -2,12 +2,14 @@ import { faker } from '@faker-js/faker';
 import { test, expect } from '../../fixtures/POMFixtures';
 import {getSessionCookie} from '../../utils/authHelper'
 
-test('POST /api/v2/pim/employees - create employee (hard-coded cookie)', async ({ request, playwright }) => {
   const payload = {
     firstName: faker.person.firstName(),
     lastName: faker.person.lastName(),
     employeeId: faker.number.int({ min: 10000, max: 99999 }).toString(),
   };
+
+test('POST /api/v2/pim/employees - create employee (hard-coded cookie)', async ({ request, playwright }) => 
+{
   const apiContext = await playwright.request.newContext({
     baseURL: process.env.BASE_URL,
     extraHTTPHeaders: {
@@ -40,12 +42,7 @@ test('POST /api/v2/pim/employees - create employee (dynamically extracted cookie
       'Content-Type': 'application/json',
       Accept: 'application/json',
     },
-  });
-  const payload = {
-    firstName: faker.person.firstName(),
-    lastName: faker.person.lastName(),
-    employeeId: faker.number.int({ min: 10000, max: 99999 }).toString(),
-  };
+  })
 
   const response = await apiContext.post('api/v2/pim/employees', {
     data: payload,
@@ -67,12 +64,6 @@ test('POST /api/v2/pim/employees - create employee (Phase 3, using auth helper)'
       Accept: 'application/json',
     },
   });
-
-  const payload = {
-    firstName: faker.person.firstName(),
-    lastName: faker.person.lastName(),
-    employeeId: faker.number.int({ min: 10000, max: 99999 }).toString(),
-  };
 
   const response = await apiContext.post('api/v2/pim/employees', { data: payload });
 

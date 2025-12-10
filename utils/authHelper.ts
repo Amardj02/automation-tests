@@ -1,8 +1,8 @@
 import { Page } from '@playwright/test';
 
 export async function getSessionCookie(page: Page): Promise<string> {
-  await page.waitForTimeout(2000);
-  
+ await page.waitForTimeout(10000);
+
   const cookies = await page.context().cookies();
   const sessionCookie = cookies.find(c => c.name === 'orangehrm')?.value;
 
