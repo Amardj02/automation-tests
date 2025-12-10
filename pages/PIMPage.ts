@@ -32,7 +32,7 @@ export class PIMPage  extends BasePage{
  
   constructor(page: Page) {
     super(page);
-    this.addButton = page.locator('button:has(.bi-plus)');
+    this.addButton = page.locator('button:has(i.bi-plus)');
     this.firstNameInput = page.locator('input.orangehrm-firstname[name="firstName"]');
     this.lastNameInput = page.locator('input.orangehrm-lastname[name="lastName"]');
     this.employeeIdInput = page.locator(
