@@ -11,7 +11,7 @@ test('POST /api/v2/pim/employees - create employee (hard-coded cookie)', async (
   const apiContext = await playwright.request.newContext({
     baseURL: process.env.BASE_URL,
     extraHTTPHeaders: {
-      Cookie: `orangehrm=8tm5g0gpbqisrbbnu1p6v2r50o`,
+      Cookie: `orangehrm=uia9atipmrfa22fuglaj2oicai`,
       'Content-Type': 'application/json',
       Accept: 'application/json',
     },
