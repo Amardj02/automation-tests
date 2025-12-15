@@ -29,8 +29,8 @@ test('POST /api/v2/pim/employees - create employee (hard-coded cookie)', async (
   console.log('API Response:', responseBody);
 });
 
-test('POST /api/v2/pim/employees - create employee (dynamically extracted cookie)', async ({ loginPage, playwright }) => {
-  await loginPage.page.waitForTimeout(2000);
+test('POST /api/v2/pim/employees - create employee (dynamically extracted cookie)', async ({ loginPage, playwright, dashboardPage }) => {
+  await dashboardPage.waitForLoad();
   const cookies = await loginPage.page.context().cookies();
   const sessionCookie = cookies.find(c => c.name === 'orangehrm')?.value;
   expect(sessionCookie).toBeTruthy();
