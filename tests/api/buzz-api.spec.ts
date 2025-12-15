@@ -91,7 +91,7 @@ const adminFeedBody = await adminFeedResponse.json();
 const likedPost = adminFeedBody.data.find(
   (post: any) => post.id === shareId
 );
-
+console.log('Liked Post Details:', likedPost);
 expect(likedPost).toBeTruthy();
 expect(likedPost.stats.numOfLikes).toBeGreaterThan(0);
 });

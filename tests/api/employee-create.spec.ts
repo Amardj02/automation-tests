@@ -7,7 +7,7 @@ import {getSessionCookie} from '../../utils/authHelper'
     lastName: faker.person.lastName(),
     employeeId: faker.number.int({ min: 10000, max: 99999 }).toString(),
   };
-
+/*
 test('POST /api/v2/pim/employees - create employee (hard-coded cookie)', async ({ request, playwright }) => 
 {
   const apiContext = await playwright.request.newContext({
@@ -27,7 +27,7 @@ test('POST /api/v2/pim/employees - create employee (hard-coded cookie)', async (
 
   const responseBody = await response.json();
   console.log('API Response:', responseBody);
-});
+});*/
 
 test('POST /api/v2/pim/employees - create employee (dynamically extracted cookie)', async ({ loginPage, playwright, dashboardPage }) => {
   await dashboardPage.waitForLoad();
