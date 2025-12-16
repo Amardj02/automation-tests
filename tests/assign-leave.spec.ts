@@ -14,6 +14,7 @@ test.beforeEach(async ({ dashboardPage, pimPage}) => {
 });
 
 test('Assign leave as Admin', async ({ leavePage}) => {
+  
   const fullName = `${employee.firstName} ${employee.lastName}`;
 
   await leavePage.navigateToLeaveList();

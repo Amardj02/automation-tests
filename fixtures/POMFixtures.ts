@@ -4,8 +4,6 @@ import { DashboardPage } from '../pages/DashboardPage';
 import { PIMPage } from '../pages/PIMPage';
 import { LeavePage } from '../pages/LeavePage';
 
-
-
 const ADMIN_USERNAME = process.env.ADMIN_USERNAME as string;
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD as string;
 
