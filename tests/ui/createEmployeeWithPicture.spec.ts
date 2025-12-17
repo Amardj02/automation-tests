@@ -1,6 +1,6 @@
 import path from 'path';
-import { test, expect } from '../fixtures/POMFixtures';
-import { generateEmployeeData } from '../utils/randomData';
+import { test, expect } from '../../fixtures/POMFixtures';
+import { generateEmployeeData } from '../../utils/randomData';
 
 const employee = generateEmployeeData();
 

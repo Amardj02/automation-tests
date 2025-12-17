@@ -1,8 +1,8 @@
 import { test, expect } from '@playwright/test';
-import { generateEmployeeData } from '../utils/randomData';
-import {LoginPage} from "../pages/LoginPage";
-import {DashboardPage} from "../pages/DashboardPage";
-import {PIMPage} from "../pages/PIMPage"
+import { generateEmployeeData } from '../../utils/randomData';
+import {LoginPage} from "../../pages/LoginPage";
+import {DashboardPage} from "../../pages/DashboardPage";
+import {PIMPage} from "../../pages/PIMPage"
 import path from 'path';
 
 
