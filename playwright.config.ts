@@ -23,7 +23,7 @@ export default defineConfig({
       testDir: './tests/ui',           
       use: {
         browserName: 'chromium',       
-        headless: false,
+        headless: process.env.CI ? true : false,        
         viewport: { width: 1280, height: 720 },
         ignoreHTTPSErrors: true,
       },
