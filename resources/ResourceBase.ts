@@ -32,8 +32,4 @@ export abstract class ResourceBase {
     return overrideAuth || this.auth;
   }
 
-  protected async logRequestCookie(headers?: Record<string, string>) {
-    const cookie = headers?.Cookie || headers?.cookie;
-    console.log('[API COOKIE USED]:', cookie ?? 'NO COOKIE');
-  }
 }
