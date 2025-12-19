@@ -1,7 +1,7 @@
-import { test, expect } from '../fixtures/POMFixtures';
+import { test, expect } from '../../fixtures/POMFixtures';
 import path from 'path';
-import { generateRandomPersonalDetails, generateWorkExperience, generateEducationLevel } from '../utils/randomPersonalDetails';
-import { generateEmployeeData } from '../utils/randomData';
+import { generateRandomPersonalDetails, generateWorkExperience, generateEducationLevel } from '../../utils/randomPersonalDetails';
+import { generateEmployeeData } from '../../utils/randomData';
 
 let createdEmployee: { firstName: string; lastName: string; employeeId: string };
 const personalDetails = generateRandomPersonalDetails();

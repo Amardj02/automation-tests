@@ -12,4 +12,5 @@ export class BasePage {
   protected async waitForSuccessToast() {
     await expect(this.successToast).toHaveText(/Success/, { timeout: 15000 });
   }
+  
 }

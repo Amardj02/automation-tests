@@ -1,7 +1,7 @@
-import { test, expect } from '../fixtures/POMFixtures';
+import { test, expect } from '../../fixtures/POMFixtures';
 import path from 'path';
-import { generateEmployeeData } from '../utils/randomData';
-import { generateLeaveDates } from '../utils/dateHelpers';
+import { generateEmployeeData } from '../../utils/randomData';
+import { generateLeaveDates } from '../../utils/dateHelpers';
 
 const employee = generateEmployeeData();
 const leaveDates = generateLeaveDates();

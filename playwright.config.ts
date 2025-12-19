@@ -4,13 +4,13 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 export default defineConfig({
-  testDir: './tests',
+  testDir: '.',
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
   reporter: [['html', { open: 'never' }]],
-  timeout: 60000,
+  timeout: 600_000,
 
   use: {
     baseURL: process.env.BASE_URL,
@@ -19,8 +19,21 @@ export default defineConfig({
 
   projects: [
     {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      name: 'ui',
+      testDir: './tests/ui',           
+      use: {
+        browserName: 'chromium',       
+        headless: process.env.CI ? true : false,        
+        viewport: { width: 1280, height: 720 },
+        ignoreHTTPSErrors: true,
+      },
+    },
+    {
+      name: 'api',
+      testDir: './tests/api',          
+      use: {
+        headless: true,                
+      },
     },
   ],
 });

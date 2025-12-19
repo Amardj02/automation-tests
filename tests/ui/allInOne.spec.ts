@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { generateEmployeeData } from '../utils/randomData';
+import { generateEmployeeData } from '../../utils/randomData';
 
 test('Create New Employee', async ({ page }) => {
   const employee = generateEmployeeData();

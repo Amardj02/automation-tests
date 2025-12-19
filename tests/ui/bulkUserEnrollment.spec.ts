@@ -1,15 +1,14 @@
-import { test, expect } from '../fixtures/POMFixtures';
+import { test, expect } from '../../fixtures/POMFixtures';
 import path from 'path';
 import fs from 'fs';
-import {ensureFolderExists, writeCsvFile, generateCsvRows, getRandomUserCount, deleteFileIfExists} from '../utils/csvGenerator';
-import {parseCsvToEmployees} from '../utils/csvHelpers'
+import {ensureFolderExists, writeCsvFile, generateCsvRows, getRandomUserCount, deleteFileIfExists} from '../../utils/csvGenerator';
+import {parseCsvToEmployees} from '../../utils/csvHelpers'
 
-const tempDataFolder = path.resolve(__dirname, '../assets/.temp-data');
+const tempDataFolder = path.resolve(__dirname, '../../assets/.temp-data');
 const csvFilePath = path.join(tempDataFolder, 'userEnrollment.csv');
 const password = 'Password123'; 
 
 test.describe('Bulk User Enrollment', () => {
-  test.describe.configure({ timeout: 180000 }); 
 
 
   test.beforeAll(async () => {
