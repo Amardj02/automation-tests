@@ -20,7 +20,7 @@ export class LeavePage extends BasePage {
   constructor(page: Page) {
     super(page);
 
-    this.leaveListLink = page.locator('a.oxd-main-menu-item[href="/web/leave/viewLeaveModule"]');
+    this.leaveListLink = page.locator('a.oxd-main-menu-item[href="/web/index.php/leave/viewLeaveModule"]');
     this.entitlementsParent = page.locator('li.--parent:has(span > i.oxd-icon)').first();
     this.entitlementsTab = page.locator('a.oxd-topbar-body-nav-tab-link').first();
     this.employeeNameInput = page.locator('.oxd-autocomplete-text-input input');
