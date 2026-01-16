@@ -8,7 +8,7 @@ function formatDateToYYYYDDMM(date: Date) {
 }
 
 export function generateLeaveDates() {
-  const MAX_DATE = new Date('2025-12-31');
+  const MAX_DATE = new Date('2026-12-31');
   const MAX_DURATION = 7;
 
   const latestStartDate = new Date(MAX_DATE);

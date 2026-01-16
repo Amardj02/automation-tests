@@ -13,7 +13,7 @@
 - [Configuration](#-configuration)
 - [Best Practices](#-best-practices)
 - [Contributing](#-contributing)
-
+- [Maintenance & Onboarding](#-maintenance--onboarding)
 ## 📌 About The Project
 
 This repository contains a **Playwright-based automation framework** for validating both **UI and API functionality** of the [OrangeHRM Demo](https://opensource-demo.orangehrmlive.com/web/index.php) web application.
@@ -48,7 +48,7 @@ UI and API tests are executed using **separate Playwright projects** (`ui` and `
 assets/                 # Static assets (screenshots, diagrams, test data)
 fixtures/               # Playwright fixtures (UI & API setup, auth, resources)
 pages/                  # UI Page Object Models (POM)
-resources/               # API Resource classes (API Object Model)
+	resources/              # API Resource classes (API Object Model)
 tests/                  # UI and API test specifications
 utils/                  # Shared helpers (auth, data generation, utilities)
 
@@ -145,6 +145,8 @@ These values are used by:
 * API authentication helpers
 * Playwright base URL configuration
 
+`dotenv` loads these values automatically for local runs; ensure the same variables are provided in CI (e.g., pipeline secrets or environment variables).
+
 ---
 
 ## ▶️ Running Tests
@@ -157,20 +159,35 @@ The framework uses **multiple Playwright projects**:
 ### Run All Tests
 
 ```bash
+npm test
+```
+
+Or via npx:
+
+```bash
 npx playwright test
 ```
 
 ### Run UI Tests Only
 
 ```bash
-npx playwright test --project=ui
+npm run test:ui
 ```
 
 ### Run API Tests Only
 
 ```bash
-npx playwright test --project=api
+npm run test:api
 ```
+
+### View HTML Report
+
+After a run, open the generated HTML report:
+
+```bash
+npx playwright show-report
+```
+The report is written to `playwright-report/`.
 
 ---
 
@@ -244,6 +261,15 @@ Ensures:
 * Do not call API directly from tests without a Resource
 * Prefer fixtures over manual setup
 * Reuse helpers from `utils/`
+
+---
+
+## 🤝 Contributing
+
+* Use feature branches from `main` or `documentation`; prefer concise names (e.g., `feature/pim-api-tests`).
+* Run the relevant suites (`npm test`, `npm run test:ui`, or `npm run test:api`) before opening a PR.
+* Keep docs in sync: update this README when adding fixtures, resources, or notable conventions.
+* Include or update test data/fixtures when adding new API/UI flows.
 
 ---
 
