@@ -1,16 +1,33 @@
 {
   "name": "automation-tests",
-  "version": "1.0.0",
-  "description": "",
+  "version": "1.1.0",
+  "description": "Playwright-based automation framework for UI and API testing of OrangeHRM with Page Object Model, Resource classes, and comprehensive fixtures for scalable test automation",
   "main": "index.js",
-  "scripts": {},
-  "keywords": [],
-  "author": "",
+  "scripts": {
+    "test": "playwright test",
+    "test:ui": "playwright test --project=ui",
+    "test:api": "playwright test --project=api"
+  },
+  "keywords": [
+    "playwright",
+    "automation",
+    "testing",
+    "e2e",
+    "ui-testing",
+    "api-testing",
+    "page-object-model",
+    "typescript",
+    "orangehrm",
+    "test-automation",
+    "fixtures",
+    "pom"
+  ],
+  "author": "Amar Djurovic",
   "license": "ISC",
   "type": "commonjs",
   "devDependencies": {
-    "@faker-js/faker": "^10.1.0",
-    "@playwright/test": "^1.56.1",
+    "@faker-js/faker": "^10.2.0",
+    "@playwright/test": "^1.57.0",
     "@types/node": "^24.10.1",
     "dotenv": "^17.2.3",
     "typescript": "^5.9.3"
