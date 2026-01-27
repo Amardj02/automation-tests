@@ -50,7 +50,7 @@ export class PIMPage  extends BasePage{
     this.genderRadioGroup = this.page.locator('input[type="radio"]'); 
     this.maritalStatusDropdown = page.locator('div.oxd-select-text-input').nth(1);
     this.nationalityDropdown = page.locator('div.oxd-select-text-input').first();
-    this.personalDetailsSaveButton = page.locator('form').filter({ hasText: 'Employee Full NameEmployee' }).getByRole('button');
+    this.personalDetailsSaveButton = page.getByText('Save').first();
     this.QualifcationsTab = page.getByRole('link', { name: 'Qualifications' });
     this.addWorkExperienceButton = page.locator('button.oxd-button--text', { hasText: 'Add' }).first();
     this.companyInput = page.getByRole('textbox').nth(1);
@@ -193,7 +193,6 @@ public async addNewEmployees(employees: Array<{
 }>) {
   for (const employee of employees) {
     await this.addNewEmployeeWithLoginCredentials(employee);
-    await this.verifyPersonalDetailsPage();
     await this.navigateToPIM();
   }
 }

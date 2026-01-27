@@ -1,12 +1,9 @@
 import { test, expect } from '../../fixtures/ApiResourceFixtures';
+import { generateEmployeeData } from '../../utils/randomData';
+import { getUserSessionCookie } from '../../utils/authHelper';
 import { faker } from '@faker-js/faker';
-import { getUserSessionCookie, getAdminSessionCookie } from '../../utils/authHelper';
 
-  const empPayload = {
-    firstName: faker.person.firstName(),
-    lastName: faker.person.lastName(),
-    employeeId: faker.number.int({ min: 10000, max: 99999 }).toString(),
-  };
+  const empPayload = generateEmployeeData();
   let buzzMessage = `Automated Buzz message ${faker.lorem.sentence()} - ${Date.now()}`;
 
  test('Buzz flow: post, feed, like', async ({employeesResource, userResource, postsResource, feedResource, sharesResource,}) => {
